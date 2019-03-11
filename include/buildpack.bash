@@ -29,7 +29,11 @@ _move-build-to-app() {
 	# shellcheck disable=SC2086,SC2154
 	mv $build_path/* $app_path
 	shopt -u dotglob nullglob
-	_chown-app-to-user
+
+	if [[ -n "$CHOWN_APP_TO_USER" ]]; then
+		title "Chown $app_path to $unprivileged_user:$unprivileged_group"
+		_chown-app-to-user
+	fi
 }
 
 _chown-app-to-user(){
